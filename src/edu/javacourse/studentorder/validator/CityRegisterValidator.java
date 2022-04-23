@@ -1,9 +1,12 @@
 package edu.javacourse.studentorder.validator;
 
 import edu.javacourse.studentorder.domain.AnswerCityRegister;
+import edu.javacourse.studentorder.domain.Child;
 import edu.javacourse.studentorder.domain.CityRegisterCheckerResponse;
 import edu.javacourse.studentorder.domain.StudentOrder;
 import edu.javacourse.studentorder.exeption.CityRegisterException;
+
+import java.util.Iterator;
 
 public class CityRegisterValidator {
     public String hostName;
@@ -25,7 +28,21 @@ public class CityRegisterValidator {
         try {
             CityRegisterCheckerResponse hans = personChecker.checkPerson(so.getHusband()); //hans - husband answer
             CityRegisterCheckerResponse wans = personChecker.checkPerson(so.getWife()); //wans - wife answer
-            CityRegisterCheckerResponse cans = personChecker.checkPerson(so.getChild()); //cans - child answer
+
+//вариант обхода списка через цикл со счетчиком
+            for (int i = 0; i < so.getChildren().size(); i++){
+                CityRegisterCheckerResponse cans = personChecker.checkPerson(so.getChildren().get(i)); //cans - child answer
+            }
+//вариант обхода списка - через итератор (это специалный объект, коорый при инициализации встает в начало списка
+            for (Iterator<Child> it = so.getChildren().iterator(); it.hasNext();){
+                Child child = it.next();
+                CityRegisterCheckerResponse cans = personChecker.checkPerson(child);
+            }
+//вариант цикла for each
+            for (Child child : so.getChildren()){
+                CityRegisterCheckerResponse cans = personChecker.checkPerson(child);
+            }
+
         } catch (CityRegisterException ex) {
             ex.printStackTrace(System.out);
         }
