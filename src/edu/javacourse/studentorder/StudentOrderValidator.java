@@ -1,13 +1,21 @@
 package edu.javacourse.studentorder;
 
 import edu.javacourse.studentorder.domain.*;
+import edu.javacourse.studentorder.domain.register.AnswerCityRegister;
 import edu.javacourse.studentorder.validator.ChildrenValidator;
 import edu.javacourse.studentorder.validator.CityRegisterValidator;
 import edu.javacourse.studentorder.validator.StudentValidator;
 import edu.javacourse.studentorder.validator.WeddingValidator;
 import mail.MailSander;
 
-//стартовый класс
+import java.util.LinkedList;
+import java.util.List;
+
+//стартовый класс. В его функции main запускается проверка всего checkAll.
+//checkAll (здесь).  Считывает функцикей readStudentOrders массив заявок и для каждой запускает checkOneOrder
+//readStudentOrders = создает массив и в каждый элемент массива записывает студенческие заявки с помощью SaveStudentOrder.buildStudentOrder (это другой класс - SaveStudentOrder)
+//checkOneOrder (здесь). - запускает checkCityRegister
+
 public class StudentOrderValidator {
 
     //т.к. СтудентОрдерВалидатор без самих валидаторов не нужен, прописываем инициализацию его переменных и методов
@@ -36,25 +44,20 @@ public class StudentOrderValidator {
     }
 
     public void checkAll(){
-        StudentOrder[] soArray = readStudentOrders();
-//        for (int c = 0; c< soArray.length; c++){
-//            System.out.println();
-//            checkOneOrder(soArray[c]);
-//        }
-//        //Вариант аналогичной записи с циклом типа for each
-//        System.out.println();
-//        System.out.println("Вариант аналогичной записи с циклом типа for each");
-        for (StudentOrder so : soArray){
+        List<StudentOrder> soList = readStudentOrders();
+//Вариант записи с циклом типа for each
+        for (StudentOrder so : soList){
             checkOneOrder(so);
         }
     }
 
-    public StudentOrder[] readStudentOrders(){
-        StudentOrder[] soArray = new StudentOrder[3];
-        for (int c=0; c<soArray.length; c++){
-            soArray[c] = SaveStudentOrder.buildStudentOrder(c);
+    public List<StudentOrder> readStudentOrders(){
+        List<StudentOrder> soList = new LinkedList<>();
+        for (int c=0; c<5; c++){
+            StudentOrder so = SaveStudentOrder.buildStudentOrder(c);
+            soList.add(so);
         }
-        return soArray;
+        return soList;
     }
 
     public void checkOneOrder(StudentOrder so){

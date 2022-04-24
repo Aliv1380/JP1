@@ -1,6 +1,6 @@
-package edu.javacourse.studentorder.domain;
+package edu.javacourse.studentorder.domain.register;
 
-public class CityRegisterCheckerResponse {
+public class CityRegisterResponse {
     //existing - существующий - может принимать да или нет
 //temporal - временный - может принимать да, нет и null
 // в случае когда ексистинг = нет темпорал = нулл

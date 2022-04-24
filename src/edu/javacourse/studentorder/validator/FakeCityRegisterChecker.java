@@ -2,9 +2,10 @@ package edu.javacourse.studentorder.validator;
 
 import edu.javacourse.studentorder.domain.Adult;
 import edu.javacourse.studentorder.domain.Child;
-import edu.javacourse.studentorder.domain.CityRegisterCheckerResponse;
+import edu.javacourse.studentorder.domain.register.CityRegisterResponse;
 import edu.javacourse.studentorder.domain.Person;
-import edu.javacourse.studentorder.exeption.CityRegisterException;
+import edu.javacourse.studentorder.exception.CityRegisterException;
+import edu.javacourse.studentorder.exception.TransportException;
 
 //это заглушка когда не нужно использовать RealCityRegisterChecker
 public class FakeCityRegisterChecker implements CityRegisterChecker{
@@ -17,11 +18,14 @@ public class FakeCityRegisterChecker implements CityRegisterChecker{
     public static final String ERROR1 = "1002";
     public static final String ERROR2 = "2002";
 
-    public CityRegisterCheckerResponse checkPerson (Person person)  throws CityRegisterException{
+    public static final String ERROR_T1 = "1003";
+    public static final String ERROR_T2 = "2003";
+
+    public CityRegisterResponse checkPerson (Person person)  throws CityRegisterException, TransportException {
 
         //сюда в качестве принимаемого объекта person могут передаваться объекты типов Adult и Child. Проверить предположение,
         //что передали что то из этого, можно с помощью instanceof
-        CityRegisterCheckerResponse res = new CityRegisterCheckerResponse();
+        CityRegisterResponse res = new CityRegisterResponse();
         if(person instanceof Adult){
             //если мы понимаем что этот объект Person является на самом деле Adult, томожем привести его к типу Adult
             Adult t = (Adult) person;
@@ -37,7 +41,13 @@ public class FakeCityRegisterChecker implements CityRegisterChecker{
                 res.setExisting(false);
             }
             if (ps.equals(ERROR1)||ps.equals(ERROR2)){
-                CityRegisterException ex = new CityRegisterException("Fake ERROR "+ps);
+                CityRegisterException ex =
+                        new CityRegisterException("1", "GRN ERROR "+ps);
+                throw ex;
+            }
+            if (ps.equals(ERROR_T1)||ps.equals(ERROR_T2)){
+                TransportException ex =
+                        new TransportException("Transport ERROR "+ps);
                 throw ex;
             }
         }
