@@ -9,8 +9,23 @@ import edu.javacourse.studentorder.domain.StudentOrder;
 import edu.javacourse.studentorder.exception.CityRegisterException;
 import edu.javacourse.studentorder.exception.TransportException;
 
+/*
+CityRegisterValidator - класс для проверки регистрации в городе
+Мы для каждой заявки, проверяем всю семью.  Создаём обобщенный ответ, в виде отчета и начинаем проверять.
+Проверяем мужа, проверяем жену, проверяем всех детей, для каждого вызывая checkPerson.
+----------------------------------------------------------------------------------------
+checkPerson - формирует довольно серьезный ответ.
+В ответе:
+Status - который говорит получен ли ответ вообще;
+cityError - ошибка которая случилась;
+Person  - персона, в рамках которой производилась данная проверка.
 
-//класс для проверки регистрации в городе
+Если ошики не случается - возвращается персона со статусом.
+Если ошибка случается - возвращается status в значении ERROR, и ошибка с кодом ошибки и сообщением.
+Затем формируется ответ по резальтатам проверки персоны  (статус, персона и ошибка=null если все норм).
+-----------------------------------------------------------------------------------------
+ */
+
 public class CityRegisterValidator {
     public static final String IN_CODE = "NO GRN";  //константа для варианта ответа по транспортному исключению
 
@@ -59,9 +74,16 @@ public class CityRegisterValidator {
             ex.printStackTrace(System.out);
             status = AnswerCityRegisterItem.CityStatus.ERROR;
             error = new AnswerCityRegisterItem.CityError(IN_CODE,ex.getMessage());
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+            status = AnswerCityRegisterItem.CityStatus.ERROR;
+            error = new AnswerCityRegisterItem.CityError(IN_CODE,ex.getMessage());
         }
+
+
+
         AnswerCityRegisterItem ans = new AnswerCityRegisterItem(status, person, error);
-        return null;
+        return ans;
     }
 
 }
