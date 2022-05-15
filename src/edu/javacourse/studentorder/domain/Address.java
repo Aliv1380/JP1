@@ -2,12 +2,12 @@ package edu.javacourse.studentorder.domain;
 
 public class Address {
     private String postCode; //Индекс
-    private String street;//Улица
+    private Street street;//Улица
     private String building;//Дом
     private String extension;//Корпус
     private String appartment;//Квартира
 
-    public Address(String postCode, String street, String building, String extension, String appartment) {
+    public Address(String postCode, Street street, String building, String extension, String appartment) {
         this.postCode = postCode; //индекс
         this.street = street; // улица
         this.building = building; // дом
@@ -19,9 +19,9 @@ public class Address {
 
     public void setPostCode(String postCode) {        this.postCode = postCode;    }
 
-    public String getStreet() {        return street;    }
+    public Street getStreet() {        return street;    }
 
-    public void setStreet(String street) {        this.street = street;    }
+    public void setStreet(Street street) {        this.street = street;    }
 
     public String getBuilding() {        return building;    }
 
