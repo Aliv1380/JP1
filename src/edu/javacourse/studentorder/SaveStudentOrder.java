@@ -13,7 +13,7 @@ import java.util.List;
 public class SaveStudentOrder
 {
     public static void main(String[] args) throws Exception {
-        List<Street> d = new DictionaryDaoImpl().findStreets("sec");
+        List<Street> d = new DictionaryDaoImpl().findStreets("str");
         for (Street s:d ){
             System.out.println(s.getStreetName());
         }

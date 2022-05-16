@@ -1,4 +1,5 @@
 package edu.javacourse.studentorder.dao;
+import edu.javacourse.studentorder.config.Config;
 import edu.javacourse.studentorder.domain.Street;
 import edu.javacourse.studentorder.exception.DaoException;
 
@@ -12,8 +13,12 @@ public class DictionaryDaoImpl implements DictionaryDao{
     private static final String GET_STREET = "select street_code, street_name from jc_street where upper(street_name) like upper(?)";
 
     private Connection getConnection() throws SQLException {
-        Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5433/jc_student",
-                "postgres","postgres");
+//        теперь эту запись можно записать иначе
+//        Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5433/jc_student","postgres","postgres");
+        Connection con = DriverManager.getConnection(
+                Config.getProperty(Config.DB_URL),
+                Config.getProperty(Config.DB_LOGIN),
+                Config.getProperty(Config.DB_PASSWORD));
         return con;
     }
 
