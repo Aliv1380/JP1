@@ -6,7 +6,7 @@ public class Adult extends Person{
     private String passportSeria; //фамилия
     private String passportNumber; //имя
     private LocalDate issueDate; //дата выдачи
-    private String issueDepartment; //Подрезделение выдавшее пасспорт
+    private PassportOffice issueDepartment; //Подрезделение выдавшее пасспорт
     private String university;
     private String studentID;
 
@@ -39,11 +39,12 @@ public class Adult extends Person{
         this.issueDate = issueDate;
     }
 
-    public String getIssueDepartment() {
+
+    public PassportOffice getIssueDepartment() {
         return issueDepartment;
     }
 
-    public void setIssueDepartment(String issueDepartment) {
+    public void setIssueDepartment(PassportOffice issueDepartment) {
         this.issueDepartment = issueDepartment;
     }
 
